@@ -1,0 +1,64 @@
+{
+  "name": "Planable",
+  "version": "0.0.1",
+  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre-commit",
+      "post-commit": "git update-index --again"
+    }
+  },
+  "scripts": {
+    "android": "npx react-native run-android",
+    "td5": "npx react-native run-ios --device=\"td5\"\n",
+    "ios": "npx react-native run-ios",
+    "start": "npx react-native start",
+    "format": "prettier \"**/*.{ts,tsx,json,js,jsx}\" --write",
+    "eslint:format": "eslint --ext=.js,.ts,.tsx src --fix ",
+    "format:staged": "lint-staged",
+    "pre-commit": "npm run eslint:format && npm run format:staged && npm run lint -- --fix",
+    "clean": "rm -rf node_modules && rm package-lock.json && watchman watch-del-all && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-*",
+    "ios:install": "pod install --project-directory=ios",
+    "ios:clean": "cd ios && rm -rf build && pod cache clean --all && cd ../",
+    "ios:reinstall-pods": "npm run ios:clean && npm run ios:install",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "react": "16.13.1",
+    "react-native": "0.63.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^1.1.0",
+    "@types/jest": "^25.2.3",
+    "@types/react-native": "^0.63.2",
+    "@types/react-test-renderer": "^16.9.2",
+    "@typescript-eslint/eslint-plugin": "^4.1.0",
+    "@typescript-eslint/parser": "^4.1.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "husky": "^4.3.0",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "16.13.1",
+    "typescript": "^3.8.3"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
