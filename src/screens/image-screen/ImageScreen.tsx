@@ -14,8 +14,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
   const [imageList, setImageList] = useState<ImageProps[]>();
 
   async function fetchImageList() {
-    const url = `${BASE_URL}photos/random?count=50&client_id=${CLIENT_ID}`;
-    console.log(url);
+    const url = `${BASE_URL}photos/?query=london&client_id=${CLIENT_ID}`;
     const response: Response = await fetch(url);
     const data: ImageProps[] = await response.json();
     setImageList(data);
@@ -28,9 +27,10 @@ export const ImageScreen = (props: Props): JSX.Element => {
   return (
     <View>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={imageList}
         keyExtractor={(image: ImageProps) => image.id}
-        renderItem={(image: ListRenderItemInfo<ImageProps>) => <ImageCard id={image.item.id} urls={image.item.urls} likes={image.item.likes} />}
+        renderItem={(image: ListRenderItemInfo<ImageProps>) => <ImageCard imageProps={image.item} />}
       />
     </View>
   );

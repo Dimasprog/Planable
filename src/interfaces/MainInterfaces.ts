@@ -1,5 +1,7 @@
 export interface ImageProps {
   id: string;
+  width: number;
+  height: number;
   urls: {
     raw: string,
     full: string,
