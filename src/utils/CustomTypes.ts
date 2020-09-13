@@ -1,4 +1,4 @@
 export type StackParamList = {
-  Image?: {},
-  Details?: {}
-}
+  Image?: {};
+  Details?: {};
+};
