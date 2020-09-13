@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, ListRenderItemInfo, View } from 'react-native';
+import { FlatList, ListRenderItemInfo } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '../../utils';
 import { BASE_URL, CLIENT_ID } from '../../utils/constatnts';
 import { ImageProps } from '../../interfaces';
 import { ImageCard } from '../../components/image-component';
+import * as s from './ImageScreen.styled';
 
 type Props = {
   navigation: StackNavigationProp<StackParamList, 'Image'>;
@@ -25,13 +26,13 @@ export const ImageScreen = (props: Props): JSX.Element => {
   }, []);
 
   return (
-    <View>
+    <s.MainContainer>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={imageList}
         keyExtractor={(image: ImageProps) => image.id}
         renderItem={(image: ListRenderItemInfo<ImageProps>) => <ImageCard imageProps={image.item} />}
       />
-    </View>
+    </s.MainContainer>
   );
 };

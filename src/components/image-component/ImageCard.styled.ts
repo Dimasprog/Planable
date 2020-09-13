@@ -1,20 +1,18 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
-// @ts-ignore
 export const ImageContainer = styled.View`
   background-color: black;
   align-items: flex-end;
   justify-content: flex-end;
+  margin-bottom: 3px;
 `;
 
-// @ts-ignore
 export const Likes = styled.View`
   position: absolute;
   padding: 5px;
   justify-content: center;
 `;
 
-// @ts-ignore
 export const LikesCount = styled.Text`
  color: white;
  font-size: 10px;
