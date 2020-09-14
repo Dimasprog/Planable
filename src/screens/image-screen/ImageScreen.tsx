@@ -24,6 +24,7 @@ type Props = StackScreenProps<StackParamList, 'Image'>;
 
 export const ImageScreen = (props: Props): JSX.Element => {
   const [imageList, setImageList] = useState<ImageProps[]>();
+  const [isRefresh, setIsRefresh] = useState<boolean>(true);
 
   const url = `${BASE_URL}photos/random?count=${IMAGE_ON_PAGE}&client_id=${CLIENT_ID}`;
 
@@ -46,6 +47,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
     if (list) {
       storeLocalImageList(IMAGE_LIST, list);
       setImageList(JSON.parse(list));
+      setIsRefresh(false);
     }
   }
 
@@ -73,7 +75,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
         data={imageList}
         keyExtractor={(image: ImageProps) => image.id}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={fetchImageList} />
+          <RefreshControl refreshing={isRefresh} onRefresh={fetchImageList} />
         }
         renderItem={(image: ListRenderItemInfo<ImageProps>) => (
           <ImageCard imageProps={image.item} navigation={props.navigation} />
