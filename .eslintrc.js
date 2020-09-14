@@ -15,6 +15,18 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'max-len': [
+      'error',
+      120,
+      2,
+      {
+        ignoreUrls: true,
+        ignoreComments: false,
+        ignoreRegExpLiterals: true,
+        ignoreStrings: false,
+        ignoreTemplateLiterals: false,
+      },
+    ],
     camelcase: 'off',
     'no-alert': 'warn',
     'no-undef': 0,
@@ -26,6 +38,7 @@ module.exports = {
     'no-useless-constructor': 0,
     yoda: [1, 'always'],
     strict: 0,
+    'function-call-argument-newline': 0,
     'operator-linebreak': 0,
     'implicit-arrow-linebreak': 0,
     'import/extensions': 0,
@@ -51,8 +64,6 @@ module.exports = {
         SwitchCase: 1,
       },
     ],
-    // 'react/jsx-indent': ['error', 2],
-    // 'react/jsx-indent-props': ['error', 2],
     'react/no-array-index-key': 1,
     'no-tabs': 'off',
     'import/no-unresolved': [0],
@@ -73,12 +84,6 @@ module.exports = {
     'global-require': 'off',
     'class-methods-use-this': 'off',
     'func-names': ['error', 'never'],
-    'max-len': [
-      'error',
-      {
-        code: 160,
-      },
-    ],
     'eol-last': ['error', 'always'],
     'no-multiple-empty-lines': [
       'error',

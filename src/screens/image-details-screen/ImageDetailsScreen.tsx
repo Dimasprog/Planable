@@ -3,7 +3,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { Alert, Image, Pressable } from 'react-native';
 import { StackParamList } from '../../utils';
 import * as s from './ImageDetailsScreen.styled';
-import { DetailItem } from '../../components/detail-item-component';
+import { DetailItem } from '../../components';
 import { BACK_IMAGE } from '../../utils/constatnts';
 
 type Props = StackScreenProps<StackParamList, 'Details'>;

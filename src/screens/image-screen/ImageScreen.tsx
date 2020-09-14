@@ -16,9 +16,9 @@ import {
   RATE_LIMIT_EXCEEDED_MESSAGE,
 } from '../../utils/constatnts';
 import { ImageProps } from '../../interfaces';
-import { ImageCard } from '../../components/image-component';
 import * as s from './ImageScreen.styled';
 import { retrieveLocalImageList, storeLocalImageList } from '../../storage';
+import { ImageCard } from '../../components';
 
 type Props = StackScreenProps<StackParamList, 'Image'>;
 
@@ -28,7 +28,11 @@ export const ImageScreen = (props: Props): JSX.Element => {
 
   const url = `${BASE_URL}photos/random?count=${IMAGE_ON_PAGE}&client_id=${CLIENT_ID}`;
 
-  function displayAlertError(error: string) {
+  function loadMore() {
+
+  }
+
+  function displayAlertError(error: string): void {
     if (error === NO_INTERNET_CONNECTION_MESSAGE) {
       Alert.alert('Connection error', 'Turn on internet connection!', [
         {
@@ -43,7 +47,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
     }
   }
 
-  function saveImageList(list: string | undefined) {
+  function saveImageList(list: string | undefined): void {
     if (list) {
       storeLocalImageList(IMAGE_LIST, list);
       setImageList(JSON.parse(list));
@@ -51,14 +55,14 @@ export const ImageScreen = (props: Props): JSX.Element => {
     }
   }
 
-  function fetchImageList() {
+  function fetchImageList(): void {
     fetch(url)
       .then((response: Response) => response.json())
       .then((data: ImageProps[]) => saveImageList(JSON.stringify(data)))
       .catch((error: Error) => displayAlertError(error.message));
   }
 
-  function displayImageList() {
+  function displayImageList(): void {
     retrieveLocalImageList(IMAGE_LIST)
       .then((data: string | undefined) => saveImageList(data))
       .catch(() => fetchImageList());
@@ -80,6 +84,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
         renderItem={(image: ListRenderItemInfo<ImageProps>) => (
           <ImageCard imageProps={image.item} navigation={props.navigation} />
         )}
+        onEndReached={() => loadMore()}
       />
     </s.MainContainer>
   );
