@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const Detail = styled.View`
-  padding-horizontal: 10px;
   border-color: red;
 `;
 
