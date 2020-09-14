@@ -10,8 +10,9 @@ import { StackParamList } from '../../utils';
 import {
   BASE_URL,
   CLIENT_ID,
-  IMAGE_COUNT,
+  IMAGE_ON_PAGE,
   NO_INTERNET_CONNECTION_MESSAGE,
+  RATE_LIMIT_EXCEEDED_MESSAGE,
 } from '../../utils/constatnts';
 import { ImageProps } from '../../interfaces';
 import { ImageCard } from '../../components/image-component';
@@ -24,22 +25,24 @@ export const ImageScreen = (props: Props): JSX.Element => {
   const [isRefresh, setIsRefresh] = useState<boolean>(false);
 
   async function fetchImageList() {
-    const url = `${BASE_URL}photos/random?count=${IMAGE_COUNT}&client_id=${CLIENT_ID}`;
+    const url = `${BASE_URL}photos/random?count=${IMAGE_ON_PAGE}&client_id=${CLIENT_ID}`;
 
     try {
       const response: Response = await fetch(url);
       const data: ImageProps[] = await response.json();
       setImageList(data);
     } catch (error) {
-      if (error.toString() === NO_INTERNET_CONNECTION_MESSAGE) {
+      if (error.message === NO_INTERNET_CONNECTION_MESSAGE) {
         Alert.alert('Connection error', 'Turn on internet connection!', [
           {
             text: 'Connect',
             onPress: () => fetchImageList(),
           },
         ]);
+      } else if (error.message === RATE_LIMIT_EXCEEDED_MESSAGE) {
+        Alert.alert('Server error', 'Request rete limit exceeded!');
       } else {
-        Alert.alert('Unknown error', 'Something went wrong!');
+        Alert.alert('Unknown error', error.message);
       }
     }
 
