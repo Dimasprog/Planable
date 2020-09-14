@@ -7,3 +7,5 @@ export const IMAGE_COUNT: string = '10';
 export const SCREEN_WIDTH: number = Dimensions.get('window').width;
 export const LIKE_IMAGE: ImageSourcePropType = require('../assets/icons/like.png');
 
+export const NO_INTERNET_CONNECTION_MESSAGE: string =
+  'TypeError: Network request failed';
