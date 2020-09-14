@@ -1,9 +1,9 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
-import {ImageScreen} from '../screens/image-screen';
-import {ImageDetailsScreen} from '../screens/image-details-screen';
-import {StackParamList} from '../utils';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { ImageScreen } from '../screens/image-screen';
+import { ImageDetailsScreen } from '../screens/image-details-screen';
+import { StackParamList } from '../utils';
 
 const Stack = createStackNavigator<StackParamList>();
 

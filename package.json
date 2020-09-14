@@ -4,7 +4,7 @@
   "private": true,
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pre-commit",
+      "pre-commit": "lint-staged",
       "post-commit": "git update-index --again"
     }
   },
@@ -57,6 +57,7 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "husky": "^4.3.0",
     "jest": "^25.1.0",
+    "lint-staged": "^10.3.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^2.1.1",
     "react-test-renderer": "16.13.1",
@@ -72,5 +73,9 @@
       "json",
       "node"
     ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "*.{js,jsx,ts,tsx,json}": "prettier --write"
   }
 }

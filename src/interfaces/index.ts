@@ -1,1 +1,1 @@
-export * from './MainInterfaces';
+export * from './CustomInterfaces';
