@@ -9,6 +9,8 @@ export const LIKE_IMAGE: ImageSourcePropType = require('../assets/icons/like.png
 export const BACK_IMAGE: ImageSourcePropType = require('../assets/icons/back.png');
 
 export const NO_INTERNET_CONNECTION_MESSAGE: string =
-  'TypeError: Network request failed';
+  'TypeError: Network request failed!';
 export const RATE_LIMIT_EXCEEDED_MESSAGE: string =
-  'JSON Parse error: Unexpected identifier "Rate"';
+  'JSON Parse error: Unexpected identifier "Rate"!';
+
+export const IMAGE_LIST: string = 'IMAGE_LIST';

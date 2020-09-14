@@ -10,6 +10,7 @@ import { StackParamList } from '../../utils';
 import {
   BASE_URL,
   CLIENT_ID,
+  IMAGE_LIST,
   IMAGE_ON_PAGE,
   NO_INTERNET_CONNECTION_MESSAGE,
   RATE_LIMIT_EXCEEDED_MESSAGE,
@@ -17,40 +18,52 @@ import {
 import { ImageProps } from '../../interfaces';
 import { ImageCard } from '../../components/image-component';
 import * as s from './ImageScreen.styled';
+import { retrieveLocalImageList, storeLocalImageList } from '../../storage';
 
 type Props = StackScreenProps<StackParamList, 'Image'>;
 
 export const ImageScreen = (props: Props): JSX.Element => {
   const [imageList, setImageList] = useState<ImageProps[]>();
-  const [isRefresh, setIsRefresh] = useState<boolean>(false);
 
-  async function fetchImageList() {
-    const url = `${BASE_URL}photos/random?count=${IMAGE_ON_PAGE}&client_id=${CLIENT_ID}`;
+  const url = `${BASE_URL}photos/random?count=${IMAGE_ON_PAGE}&client_id=${CLIENT_ID}`;
 
-    try {
-      const response: Response = await fetch(url);
-      const data: ImageProps[] = await response.json();
-      setImageList(data);
-    } catch (error) {
-      if (error.message === NO_INTERNET_CONNECTION_MESSAGE) {
-        Alert.alert('Connection error', 'Turn on internet connection!', [
-          {
-            text: 'Connect',
-            onPress: () => fetchImageList(),
-          },
-        ]);
-      } else if (error.message === RATE_LIMIT_EXCEEDED_MESSAGE) {
-        Alert.alert('Server error', 'Request rete limit exceeded!');
-      } else {
-        Alert.alert('Unknown error', error.message);
-      }
+  function displayAlertError(error: string) {
+    if (error === NO_INTERNET_CONNECTION_MESSAGE) {
+      Alert.alert('Connection error', 'Turn on internet connection!', [
+        {
+          text: 'Connect',
+          onPress: () => displayImageList(),
+        },
+      ]);
+    } else if (error === RATE_LIMIT_EXCEEDED_MESSAGE) {
+      Alert.alert('Server error', 'Request rete limit exceeded!');
+    } else {
+      Alert.alert('Unknown error', error);
     }
+  }
 
-    setIsRefresh(false);
+  function saveImageList(list: string | undefined) {
+    if (list) {
+      storeLocalImageList(IMAGE_LIST, list);
+      setImageList(JSON.parse(list));
+    }
+  }
+
+  function fetchImageList() {
+    fetch(url)
+      .then((response: Response) => response.json())
+      .then((data: ImageProps[]) => saveImageList(JSON.stringify(data)))
+      .catch((error: Error) => displayAlertError(error.message));
+  }
+
+  function displayImageList() {
+    retrieveLocalImageList(IMAGE_LIST)
+      .then((data: string | undefined) => saveImageList(data))
+      .catch(() => fetchImageList());
   }
 
   useEffect(() => {
-    fetchImageList();
+    displayImageList();
   }, []);
 
   return (
@@ -60,7 +73,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
         data={imageList}
         keyExtractor={(image: ImageProps) => image.id}
         refreshControl={
-          <RefreshControl refreshing={isRefresh} onRefresh={fetchImageList} />
+          <RefreshControl refreshing={false} onRefresh={fetchImageList} />
         }
         renderItem={(image: ListRenderItemInfo<ImageProps>) => (
           <ImageCard imageProps={image.item} navigation={props.navigation} />
