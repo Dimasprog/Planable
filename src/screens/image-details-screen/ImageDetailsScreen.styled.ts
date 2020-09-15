@@ -14,3 +14,12 @@ export const Back = styled.View`
   flex-direction: row;
   align-items: center;
 `;
+
+export const BorderLine = styled.View`
+  margin-top: 18px;
+  margin-vertical: 10px;
+  margin-horizontal: 110px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: gray;
+`;

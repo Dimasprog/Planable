@@ -2,12 +2,6 @@
   "name": "Planable",
   "version": "0.0.1",
   "private": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pre-commit",
-      "post-commit": "git update-index --again"
-    }
-  },
   "scripts": {
     "android": "npx react-native run-android",
     "td5": "npx react-native run-ios --device=\"td5\"\n",

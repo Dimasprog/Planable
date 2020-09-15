@@ -16,20 +16,11 @@ export const ImageDetailsScreen = (props: Props): JSX.Element => {
   const { imageProps } = route.params;
 
   // @ts-ignore
-  const {
-    aperture,
-    focal_length,
-    exposure_time,
-    make,
-    model,
-    iso,
-  } = route.params?.imageProps.exif;
+  const { aperture, focal_length, exposure_time, make, model, iso } = route.params?.imageProps.exif;
 
   const noExifData: boolean =
     // @ts-ignore
-    Object.values(props.route.params?.imageProps.exif).every(
-      (element: string | number) => null === element,
-    );
+    Object.values(props.route.params?.imageProps.exif).every((element: string | number) => null === element);
 
   if (noExifData) {
     Alert.alert('No details!', '', [
@@ -50,6 +41,7 @@ export const ImageDetailsScreen = (props: Props): JSX.Element => {
               </s.Back>
             </Pressable>
             <Photo imageProps={imageProps} />
+            <s.BorderLine />
           </>
         )}
         {make && <DetailItem detailsProps={{ key: 'Make', value: make }} />}
