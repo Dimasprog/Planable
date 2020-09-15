@@ -10,18 +10,12 @@ type Props = StackScreenProps<StackParamList, 'Details'>;
 
 export const ImageDetailsScreen = (props: Props): JSX.Element => {
   const { navigation, route } = props;
-  const {
-    aperture,
-    focal_length,
-    exposure_time,
-    make,
-    model,
-    iso,
-  } = route.params?.imageProps.exif;
+  // @ts-ignore
+  const { aperture, focal_length, exposure_time, make, model, iso } = route.params?.imageProps.exif;
 
-  const noExifData: boolean = Object.values(
-    props.route.params?.imageProps.exif,
-  ).every((element: string | number) => null === element);
+  const noExifData: boolean =
+    // @ts-ignore
+    Object.values(props.route.params?.imageProps.exif).every((element: string | number) => null === element);
 
   if (noExifData) {
     Alert.alert('No details!', '', [

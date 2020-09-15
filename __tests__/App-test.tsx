@@ -5,7 +5,7 @@
 import 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {RootNavigator} from "../src/navigation";
+import { RootNavigator } from '../src/navigation';
 
 // Note: test renderer must be required after react-native.
 

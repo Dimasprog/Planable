@@ -28,10 +28,6 @@ export const ImageScreen = (props: Props): JSX.Element => {
 
   const url = `${BASE_URL}photos/random?count=${IMAGE_ON_PAGE}&client_id=${CLIENT_ID}`;
 
-  function loadMore() {
-
-  }
-
   function displayAlertError(error: string): void {
     if (error === NO_INTERNET_CONNECTION_MESSAGE) {
       Alert.alert('Connection error', 'Turn on internet connection!', [
@@ -69,6 +65,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
   }
 
   useEffect(() => {
+    // removeLocalImageList(IMAGE_LIST); //for testing
     displayImageList();
   }, []);
 
@@ -84,7 +81,6 @@ export const ImageScreen = (props: Props): JSX.Element => {
         renderItem={(image: ListRenderItemInfo<ImageProps>) => (
           <ImageCard imageProps={image.item} navigation={props.navigation} />
         )}
-        onEndReached={() => loadMore()}
       />
     </s.MainContainer>
   );

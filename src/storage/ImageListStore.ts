@@ -13,3 +13,7 @@ export async function retrieveLocalImageList(key: string): Promise<string | unde
 
   throw new Error('No image list data');
 }
+
+export async function removeLocalImageList(key: string) {
+  await AsyncStorage.removeItem(key);
+}
