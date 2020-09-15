@@ -1,10 +1,9 @@
 import React from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { Alert, Image, Pressable } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import { StackParamList } from '../../utils';
 import * as s from './ImageDetailsScreen.styled';
 import { DetailItem } from '../../components';
-import { BACK_IMAGE } from '../../utils/constatnts';
 import { Photo } from '../../components/photo-component';
 
 type Props = StackScreenProps<StackParamList, 'Details'>;
@@ -35,11 +34,11 @@ export const ImageDetailsScreen = (props: Props): JSX.Element => {
       <s.Details>
         {!noExifData && (
           <>
-            <Pressable onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <s.Back>
-                <Image source={BACK_IMAGE} width={32} height={32} />
+                <s.BackText>{'Back'}</s.BackText>
               </s.Back>
-            </Pressable>
+            </TouchableOpacity>
             <Photo imageProps={imageProps} />
             <s.BorderLine />
           </>
