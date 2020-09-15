@@ -18,5 +18,7 @@
 
 
 ### Demo
-
 ![](./src/assets/demo.gif)
+### Demo (fix/photo-screen)
+![](./src/assets/demo2.gif)
+
