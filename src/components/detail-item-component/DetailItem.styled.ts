@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Detail = styled.View`
-  border-color: red;
+  margin-horizontal: 10px;
 `;
 
 export const DetailKey = styled.Text`
@@ -10,7 +10,7 @@ export const DetailKey = styled.Text`
 `;
 
 export const DetailValue = styled.Text`
-  color: black;
+  color: white;
   font-weight: bold;
   font-size: 20px;
 `;
