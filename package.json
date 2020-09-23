@@ -7,6 +7,7 @@
     "td5": "npx react-native run-ios --device=\"td5\"\n",
     "ios": "npx react-native run-ios",
     "start": "npx react-native start",
+    "fix:watchman": "bash ./.watchman_error.sh",
     "format": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}",
     "eslint:format": "eslint --ext=.js,.ts,.tsx src --fix ",
     "format:staged": "lint-staged",
