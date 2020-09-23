@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Alert,
-  FlatList,
-  ListRenderItemInfo,
-  RefreshControl,
-} from 'react-native';
+import { ActivityIndicator, Alert, FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { StackParamList } from '../../utils';
 import {
@@ -23,7 +18,7 @@ import { ImageCard } from '../../components';
 type Props = StackScreenProps<StackParamList, 'Image'>;
 
 export const ImageScreen = (props: Props): JSX.Element => {
-  const [imageList, setImageList] = useState<ImageProps[]>();
+  const [imageList, setImageList] = useState<ImageProps[]>([]);
   const [isRefresh, setIsRefresh] = useState<boolean>(true);
 
   const url = `${BASE_URL}photos/random?count=${IMAGE_ON_PAGE}&client_id=${CLIENT_ID}`;
@@ -44,7 +39,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
   }
 
   function saveImageList(list: string | undefined): void {
-    if (list) {
+    if (list !== undefined) {
       storeLocalImageList(IMAGE_LIST, list);
       setImageList(JSON.parse(list));
       setIsRefresh(false);
@@ -54,7 +49,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
   function fetchImageList(): void {
     fetch(url)
       .then((response: Response) => response.json())
-      .then((data: ImageProps[]) => saveImageList(JSON.stringify(data)))
+      .then((data: ImageProps[]) => saveImageList(JSON.stringify(imageList.concat(data))))
       .catch((error: Error) => displayAlertError(error.message));
   }
 
@@ -65,7 +60,7 @@ export const ImageScreen = (props: Props): JSX.Element => {
   }
 
   useEffect(() => {
-    // removeLocalImageList(IMAGE_LIST); //for testing
+    // removeLocalImageList(IMAGE_LIST); // for testing
     displayImageList();
   }, []);
 
@@ -74,13 +69,15 @@ export const ImageScreen = (props: Props): JSX.Element => {
       <FlatList
         showsVerticalScrollIndicator={false}
         data={imageList}
-        keyExtractor={(image: ImageProps) => image.id}
+        keyExtractor={(item: ImageProps, index: number) => index.toString()}
         refreshControl={
           <RefreshControl refreshing={isRefresh} onRefresh={fetchImageList} />
         }
         renderItem={(image: ListRenderItemInfo<ImageProps>) => (
           <ImageCard imageProps={image.item} navigation={props.navigation} />
         )}
+        onEndReached={fetchImageList}
+        ListFooterComponent={!isRefresh ? <ActivityIndicator size={'large'} color={'white'} /> : null}
       />
     </s.MainContainer>
   );

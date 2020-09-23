@@ -12,7 +12,7 @@
 
 ### Optional:
 
-- Add an infinite scroll for the list ❌
+- Add an infinite scroll for the list ✔️
 - Display a heart icon/image with the number of *likes* in the top right corner of a photo ✔️
 - Add EXIF info about photo below the image using photo id. (You'll need to use `Get a photo` endpoint here.) ✔️
 
@@ -21,4 +21,6 @@
 ![](./src/assets/demo.gif)
 ### Demo (fix/photo-screen)
 ![](./src/assets/demo2.gif)
+### Demo (Infinite scrolling)
+![](./src/assets/demo3.gif)
 
